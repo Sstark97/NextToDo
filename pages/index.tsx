@@ -1,8 +1,93 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import "bootstrap/dist/css/bootstrap.css";
+import React, { useRef, useState} from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { ToDo } from '../model/types'
+import ToDoList from '../components/ToDoList';
+import { EditModal } from '../components/EditedModal';
 
 export default function Home() {
+  const toDo: ToDo[] = [{task:'Probando', id:uuidv4(), completed:false}]
+  const ToDo: ToDo = {task:'', id:uuidv4(), completed:false};
+  const [todos,setTodos] = useState(toDo);
+
+  const [todo, setEditing] = useState(ToDo);
+
+  const todoRef = useRef<HTMLInputElement>(null);
+
+  const addToDo = () => {
+      if(todoRef === undefined || todoRef.current === undefined){
+          return;
+      }
+    const task = todoRef.current?.value;
+
+    if (task === "") {
+      return;
+    }
+
+    if(typeof task !== 'undefined'){
+        setTodos((prevToDos : ToDo[]) => {
+            return [
+              ...prevToDos,
+              {
+                task: task,
+                id: uuidv4(),
+                completed:false
+              }
+            ];
+          });
+    }
+  };
+
+  const completedToDo = (id : string) => {
+    const updatedToDos = [...todos];
+
+    const todo = updatedToDos.find((todo) => todo.id === id);
+    
+    if(typeof todo !== 'undefined'){
+        todo.completed = !todo.completed;
+        setTodos(updatedToDos);
+    }
+    
+  };
+
+  const deleteToDo = (id:string) => {
+    const toDoWithoutDelete = [...todos].filter((todo) => todo.id !== id);
+
+    setTodos(toDoWithoutDelete);
+  };
+
+  const handleEdit = (id:string) => {
+    const todo = todos.find((todo) => todo.id === id);
+
+    if(typeof todo !== 'undefined'){
+        setEditing(todo);
+        console.log(todo);
+
+    }
+
+  };
+
+  const handleSubmitEdited = (toDo:ToDo) => {
+    const updatedTodos = [...todos];
+    const task = updatedTodos.find((todo) => todo.id === toDo.id);
+    
+    if(typeof task !== 'undefined'){
+        task.task = toDo.task;
+
+        console.log(toDo);
+        setTodos(updatedTodos);
+        setEditing({task:'', id:uuidv4(), completed:false});
+    }
+
+  };
+
+  const handleCloseModalInParent = () => {
+    setEditing({task:'', id:uuidv4(), completed:false});
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,45 +96,29 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div className="container d-flex mt-2 justify-content-center">
+        <input ref={todoRef} className="me-2" type="text" />
+        <button className="btn btn-primary me-1" onClick={addToDo}>
+          Add
+        </button>
+      </div>
+
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+          <ToDoList
+            todos={todos}
+            completedToDo={completedToDo}
+            deleteToDo={deleteToDo}
+            handleEdit={handleEdit}
+          />
+          {todo.task !== '' ? (
+            <EditModal
+              todo={todo}
+              handleSubmitEdited={handleSubmitEdited}
+              handleCloseModalInParent={handleCloseModalInParent}
+            />
+          ) : (
+            <span> </span>
+          )}
       </main>
 
       <footer className={styles.footer}>
