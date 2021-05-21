@@ -98,7 +98,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="container d-flex mt-2 justify-content-center">
+      <div className="container d-flex mt-4 justify-content-center position-absolute top-0 start-50 translate-middle">
         <input ref={todoRef} className="me-2" type="text" />
         <button className="btn btn-primary me-1" onClick={addToDo}>
           Add

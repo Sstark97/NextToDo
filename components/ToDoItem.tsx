@@ -23,7 +23,7 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit} : PropsToDo) =>
 
   return (
     <li className="list-group-item">
-      <div className="d-flex align-items-center m-2 p-3 w-100 justify-content-around">
+      <div className="d-flex align-items-center m-2 w-100 justify-content-around">
         <span className="w-25">Task: {todo.task}</span>
         <div className="d-flex align-items-center justify-content-between ms-4 w-25 me-2">
             <input
