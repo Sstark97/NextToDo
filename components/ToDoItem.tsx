@@ -20,7 +20,7 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit} : PropsToDo) =>
 
   return (
     <li className="">
-      <div className="d-flex align-items-center justify-content-around">
+      <div className="d-flex align-items-center justify-content-around m-2 p-3">
         {todo.task}
         <input
           className="ms-2"
