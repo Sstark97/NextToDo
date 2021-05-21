@@ -10,7 +10,7 @@ const ToDoList = ({todos, completedToDo, deleteToDo, handleEdit} : PropsList ) =
 
 
     return (
-    <ul className="mt-2 text-center w-100">
+    <ul className="list-group mt-2 text-center w-25">
       {todos.length !== 0 ? <h1>ToDo</h1> : <span></span>}
       {todos.map((todo) => {
         return (
