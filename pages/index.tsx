@@ -39,6 +39,7 @@ export default function Home() {
             ];
           });
           todoRef.current.value = '';
+          console.log(process.env.PRISMA)
     }
   };
 
