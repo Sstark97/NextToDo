@@ -18,7 +18,7 @@ export default function Home() {
   const todoRef = useRef<HTMLInputElement>(null);
 
   const addToDo = () => {
-      if(todoRef === undefined || todoRef.current === undefined){
+      if(todoRef === undefined || todoRef.current === undefined || todoRef.current === null){
           return;
       }
     const task = todoRef.current?.value;
@@ -38,6 +38,7 @@ export default function Home() {
               }
             ];
           });
+          todoRef.current.value = '';
     }
   };
 
