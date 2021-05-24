@@ -13,7 +13,6 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@prisma/client": "^2.23.0",
     "@types/uuid": "^8.3.0",
     "bootstrap": "^5.0.1",
     "next": "10.2.2",
