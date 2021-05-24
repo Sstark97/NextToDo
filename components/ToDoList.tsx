@@ -7,7 +7,17 @@ import styles from '../styles/ToDo.module.css'
 
 
 
-const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handleShowActivesInParent, handleShowAll, handleShowCompletedInParent, active, completed} : PropsList ) =>  {
+const ToDoList = ({todos, 
+  addToDo, 
+  completedToDo,
+  deleteToDo, 
+  handleEdit, 
+  handleShowActivesInParent, 
+  handleShowAll, 
+  handleShowCompletedInParent, 
+  active, 
+  completed, 
+  deleteAllCompletedToDo} : PropsList ) =>  {
     
     const todoRef = useRef<HTMLInputElement>(null);
 
@@ -40,6 +50,10 @@ const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handle
       handleShowCompletedInParent();
     }
 
+    const handleDeleteAllCompletedToDos = () => {
+      deleteAllCompletedToDo();
+    }
+
     return (
     <ul className="list-group mt-2 text-center w-25">
       {console.log('render')}
@@ -69,6 +83,18 @@ const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handle
           />
         );
       })}
+
+      {completed 
+        ? 
+        <div className="d-flex justify-content-end mt-2">
+          {todos.filter(todos => todos.completed).length !== 0 
+            ? <button className="btn btn-danger w-25" onClick={handleDeleteAllCompletedToDos}>DeleteAll</button> 
+            : <></>}
+        </div> 
+        : 
+        <></>
+      }
+
     </ul>
   );
 

@@ -37,11 +37,8 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit, active, complet
                       onChange={markToDo}
                     />
                     <span className={styles.todoItemButton}>{todo.task}</span>
-                    <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
-                      Delete
-                    </button>
 
-                    <button className="btn btn-warning" onClick={editToDo}>
+                    <button className="btn btn-warning ms-5" onClick={editToDo}>
                       Edit
                     </button>
             
@@ -64,11 +61,8 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit, active, complet
                       onChange={markToDo}
                     />
                     <span className={styles.todoItemButton}>{todo.task}</span>
-                    <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
-                      Delete
-                    </button>
 
-                    <button className="btn btn-warning" onClick={editToDo}>
+                    <button className="btn btn-warning ms-5" onClick={editToDo}>
                       Edit
                     </button>
             
@@ -102,7 +96,6 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit, active, complet
                     </button>
             
                   </div>
-
                </div>
       
             </li>
@@ -149,9 +142,6 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit, active, complet
                       onChange={markToDo}
                     />
                     <span className={styles.todoItemButton}>{todo.task}</span>
-                    <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
-                      Delete
-                    </button>
 
                     <button className="btn btn-warning" onClick={editToDo}>
                       Edit

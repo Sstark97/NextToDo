@@ -14,7 +14,8 @@ export interface PropsList {
     handleShowCompletedInParent():void,
     handleShowAll():void,
     active:boolean,
-    completed:boolean
+    completed:boolean,
+    deleteAllCompletedToDo():void
 }
 
 export interface PropsToDo {

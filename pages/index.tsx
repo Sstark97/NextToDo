@@ -51,6 +51,13 @@ export default function Home() {
     setTodos(toDoWithoutDelete);
   };
 
+  const deleteAllCompletedToDo = () =>  {
+    const toDoWithoutDelete = [...todos].filter((todo) => todo.completed !== true);
+
+    setTodos(toDoWithoutDelete);
+
+  }
+
   const handleEdit = (id:string) => {
     const todo = todos.find((todo) => todo.id === id);
 
@@ -122,6 +129,7 @@ export default function Home() {
             handleShowAll={handleShowAll}
             active = {active}
             completed = {completed}
+            deleteAllCompletedToDo = {deleteAllCompletedToDo}
             />
           {todo.task !== '' ? (
             <EditModal
