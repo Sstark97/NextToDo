@@ -4,8 +4,9 @@ import { ToDo, PropsToDo} from '../model/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image';
+import styles from '../styles/ToDo.module.css'
 
-const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit} : PropsToDo) => {
+const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit, active} : PropsToDo) => {
 
     const { id } = todo;
 
@@ -21,32 +22,96 @@ const ToDoItem = ( {todo, completedToDo, deleteToDo, handleEdit} : PropsToDo) =>
     handleEdit(id);
   };
 
-  return (
-    <li className="list-group-item">
-      <div className="d-flex align-items-center m-2 w-100 justify-content-around">
-        <span className="w-25">Task: {todo.task}</span>
-        <div className="d-flex align-items-center justify-content-between ms-4 w-25 me-2">
-            <input
-                className="ms-2"
-                type="checkbox"
-                name=""
-                id=""
-                onChange={markToDo}
-            />
-            <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
-                Delete
-            </button>
+  const renderToDo = () => {
+    if(active){
+      if(todo.completed){
+        return (
+          <li className="list-group-item mt-3 d-none">
+              <div className="d-flex align-items-center m-2 w-100 justify-content-between">
+                <div className="d-flex align-items-center ms-4 w-75">
+                    <input
+                      className="me-4"
+                      type="checkbox"
+                      name=""
+                      id=""
+                      onChange={markToDo}
+                    />
+                    <span className={styles.todoItemButton}>{todo.task}</span>
+                    <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
+                      Delete
+                    </button>
 
-            <button className="btn btn-warning" onClick={editToDo}>
-              Edit
-            </button>
+                    <button className="btn btn-warning" onClick={editToDo}>
+                      Edit
+                    </button>
             
-        </div>
+                  </div>
+
+               </div>
       
-        
-      </div>
+            </li>
+
+        )
+      } else {
+        return (<li className="list-group-item mt-3">
+              <div className="d-flex align-items-center m-2 w-100 justify-content-between">
+                <div className="d-flex align-items-center ms-4 w-75">
+                    <input
+                      className="me-4"
+                      type="checkbox"
+                      name=""
+                      id=""
+                      onChange={markToDo}
+                    />
+                    <span className={styles.todoItemButton}>{todo.task}</span>
+                    <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
+                      Delete
+                    </button>
+
+                    <button className="btn btn-warning" onClick={editToDo}>
+                      Edit
+                    </button>
+            
+                  </div>
+
+               </div>
       
-    </li>
+            </li>)
+      }
+
+    } else {
+      {console.log(active)}
+      return(<li className="list-group-item mt-3">
+              <div className="d-flex align-items-center m-2 w-100 justify-content-between">
+                <div className="d-flex align-items-center ms-4 w-75">
+                    <input
+                      className="me-4"
+                      type="checkbox"
+                      name=""
+                      id=""
+                      onChange={markToDo}
+                    />
+                    <span className={styles.todoItemButton}>{todo.task}</span>
+                    <button className="btn btn-danger ms-2 me-2" onClick={dropToDo}>
+                      Delete
+                    </button>
+
+                    <button className="btn btn-warning" onClick={editToDo}>
+                      Edit
+                    </button>
+            
+                  </div>
+
+               </div>
+      
+            </li>)
+    }
+
+    return <></>
+  }
+
+  return (
+    renderToDo()
   );
 
 }

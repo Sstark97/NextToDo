@@ -12,35 +12,24 @@ export default function Home() {
   const toDo: ToDo[] = [{task:'Probando', id:uuidv4(), completed:false}]
   const ToDo: ToDo = {task:'', id:uuidv4(), completed:false};
   const [todos,setTodos] = useState(toDo);
+  const [active,setSignalActive] = useState(false);
 
   const [todo, setEditing] = useState(ToDo);
 
   const todoRef = useRef<HTMLInputElement>(null);
 
-  const addToDo = () => {
-      if(todoRef === undefined || todoRef.current === undefined || todoRef.current === null){
-          return;
-      }
-    const task = todoRef.current?.value;
-
-    if (task === "") {
-      return;
-    }
-
-    if(typeof task !== 'undefined'){
+  const addToDo = (todoTitle:string) => {
+    
         setTodos((prevToDos : ToDo[]) => {
             return [
               ...prevToDos,
               {
-                task: task,
+                task: todoTitle,
                 id: uuidv4(),
                 completed:false
               }
             ];
-          });
-          todoRef.current.value = '';
-          console.log(process.env.PRISMA)
-    }
+          });    
   };
 
   const completedToDo = (id : string) => {
@@ -51,8 +40,8 @@ export default function Home() {
     if(typeof todo !== 'undefined'){
         todo.completed = !todo.completed;
         setTodos(updatedToDos);
+  
     }
-    
   };
 
   const deleteToDo = (id:string) => {
@@ -90,6 +79,14 @@ export default function Home() {
     setEditing({task:'', id:uuidv4(), completed:false});
   };
 
+  const handleShowActivesInParent = () => {
+    setSignalActive(true);
+  }
+
+  const handleShowAll = () => {
+    setSignalActive(false);
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -98,20 +95,24 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="container d-flex mt-4 justify-content-center position-absolute top-0 start-50 translate-middle">
+      {/* <div className="container d-flex mt-4 justify-content-center w-100">
         <input ref={todoRef} className="me-2" type="text" />
         <button className="btn btn-primary me-1" onClick={addToDo}>
           Add
         </button>
-      </div>
+      </div> */}
 
       <main className={styles.main}>
-          <ToDoList
+            <ToDoList
             todos={todos}
+            addToDo={addToDo}
             completedToDo={completedToDo}
             deleteToDo={deleteToDo}
             handleEdit={handleEdit}
-          />
+            handleShowActivesInParent={handleShowActivesInParent}
+            handleShowAll={handleShowAll}
+            active = {active}
+            />
           {todo.task !== '' ? (
             <EditModal
               todo={todo}

@@ -6,16 +6,21 @@ export interface ToDo{
 
 export interface PropsList {
     todos: ToDo[],
+    addToDo(todoTitle:string) : void,
     completedToDo(id:string) : void,
     deleteToDo(id:string) :void,
-    handleEdit(id:string):void
+    handleEdit(id:string):void,
+    handleShowActivesInParent():void,
+    handleShowAll():void,
+    active:boolean
 }
 
 export interface PropsToDo {
     todo: ToDo,
     completedToDo(id:string) : void,
     deleteToDo(id:string) :void,
-    handleEdit(id:string):void
+    handleEdit(id:string):void,
+    active:boolean
 }
 
 export interface PropsModal {
