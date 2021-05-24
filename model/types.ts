@@ -11,8 +11,10 @@ export interface PropsList {
     deleteToDo(id:string) :void,
     handleEdit(id:string):void,
     handleShowActivesInParent():void,
+    handleShowCompletedInParent():void,
     handleShowAll():void,
-    active:boolean
+    active:boolean,
+    completed:boolean
 }
 
 export interface PropsToDo {
@@ -20,7 +22,8 @@ export interface PropsToDo {
     completedToDo(id:string) : void,
     deleteToDo(id:string) :void,
     handleEdit(id:string):void,
-    active:boolean
+    active:boolean,
+    completed:boolean
 }
 
 export interface PropsModal {

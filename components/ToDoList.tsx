@@ -7,7 +7,7 @@ import styles from '../styles/ToDo.module.css'
 
 
 
-const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handleShowActivesInParent, handleShowAll, active} : PropsList ) =>  {
+const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handleShowActivesInParent, handleShowAll, handleShowCompletedInParent, active, completed} : PropsList ) =>  {
     
     const todoRef = useRef<HTMLInputElement>(null);
 
@@ -36,6 +36,10 @@ const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handle
       handleShowAll();
     }
 
+    const handleShowCompletedToDo = () => {
+      handleShowCompletedInParent();
+    }
+
     return (
     <ul className="list-group mt-2 text-center w-25">
       {console.log('render')}
@@ -43,7 +47,7 @@ const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handle
       <div className="d-flex w-100 justify-content-center">
         <button className={styles.todoButtons} onClick={handleShowAllInParent}>All</button>
         <button className={styles.todoButtons} onClick={handleShowActivesToDo}>Active</button>
-        <button className={styles.todoButtons}>Completed</button>
+        <button className={styles.todoButtons} onClick={handleShowCompletedToDo}>Completed</button>
       </div>
       <hr className="w-100" />
       <div className="container d-flex mt-4 justify-content-center w-100">
@@ -61,6 +65,7 @@ const ToDoList = ({todos, addToDo, completedToDo, deleteToDo, handleEdit, handle
             deleteToDo={deleteToDo}
             handleEdit={handleEdit}
             active = {active}
+            completed = {completed}
           />
         );
       })}

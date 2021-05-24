@@ -13,6 +13,7 @@ export default function Home() {
   const ToDo: ToDo = {task:'', id:uuidv4(), completed:false};
   const [todos,setTodos] = useState(toDo);
   const [active,setSignalActive] = useState(false);
+  const [completed,setSignalCompleted] = useState(false);
 
   const [todo, setEditing] = useState(ToDo);
 
@@ -81,9 +82,16 @@ export default function Home() {
 
   const handleShowActivesInParent = () => {
     setSignalActive(true);
+    setSignalCompleted(false);
   }
 
   const handleShowAll = () => {
+    setSignalActive(false);
+    setSignalCompleted(false);
+  }
+
+  const handleShowCompletedInParent = () => {
+    setSignalCompleted(true);
     setSignalActive(false);
   }
 
@@ -110,8 +118,10 @@ export default function Home() {
             deleteToDo={deleteToDo}
             handleEdit={handleEdit}
             handleShowActivesInParent={handleShowActivesInParent}
+            handleShowCompletedInParent={handleShowCompletedInParent}
             handleShowAll={handleShowAll}
             active = {active}
+            completed = {completed}
             />
           {todo.task !== '' ? (
             <EditModal
